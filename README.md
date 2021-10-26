@@ -22,7 +22,7 @@
 
 
 
-(2.5). Create Internet Gateway
+3. Create Internet Gateway
 
 `IGW=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)`
 
@@ -32,11 +32,11 @@ Attach to VPC
 
 
 
-3. Create Security Group
+4. Create Security Group
 
 `SG=$(aws ec2 create-security-group --group-name my-sg --description "My security group" --vpc-id $VPC --output text)`
 
-Enable SSH
+Enable SSH, HTTP, HTTPS
 
 `aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr 0.0.0.0/0`
 
@@ -48,7 +48,7 @@ Enable SSH
 
 4. Create Launch Configuration
 
-`aws autoscaling create-launch-configuration --launch-configuration-name my-lc --image-id ami-058e6df85cfc7760b --instance-type t2.micro --security-groups $SG`
+`aws autoscaling create-launch-configuration --launch-configuration-name my-lc --image-id ami-058e6df85cfc7760b --instance-type t2.micro --security-groups $SG --block-device-mappings '[{"DeviceName":"/dev/sdh","Ebs":{"VolumeSize":15,"VolumeType":"gp2"}}]'`
 
 
 
