@@ -46,19 +46,19 @@ Enable SSH
 
 
 
-3. Create Launch Configuration
+4. Create Launch Configuration
 
 `aws autoscaling create-launch-configuration --launch-configuration-name my-lc --image-id ami-058e6df85cfc7760b --instance-type t2.micro --security-groups $SG`
 
 
 
-3. Create Load Balancer
+5. Create Load Balancer
 
 `aws elb create-load-balancer --load-balancer-name my-lb --listeners "Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80" --subnets $SUBNET1`
 
 
 
-3. Create AWS Autoscaling group (ASG)
+6. Create AWS Autoscaling group (ASG)
 
 `aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-configuration-name my-lc --min-size 1 --max-size 2 --vpc-zone-identifier "$SUBNET1" --load-balancer-names my-lb`
 
